@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chấm Công</title>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script defer src="../js/chamCong.js"></script>
+  <script src="../js/dateUtils.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 p-6">
+  <div class="p-6 space-y-4">
+    <h2 class="text-xl font-bold">📊 Chấm Công</h2>
+
+    <!-- Nhập file và thao tác -->
+    <div class="p-4">
+      <div class="grid gap-6 md:grid-cols-4">
+
+        <!-- Cột 1: Chấm công + Thông tin NV -->
+        <div class="md:col-span-2 border rounded-lg p-4 space-y-3">
+          <!-- Hàng 1: file chấm công + Load -->
+          <div class="flex items-end gap-3">
+            <div class="flex-1">
+              <label for="fileChamCong" class="block text-gray-700 font-medium mb-1">
+                Chọn file chấm công
+              </label>
+              <input type="file" id="fileChamCong" accept=".xlsx"
+                class="border border-gray-300 p-1 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-400" />
+            </div>
+            <button id="btnLoadChamCong" class="w-32 h-11 rounded-lg bg-blue-600 text-white font-medium
+          hover:bg-blue-700 active:bg-blue-800
+          focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400
+          transition-colors">
+              Load
+            </button>
+          </div>
+
+          <!-- Hàng 2: file thông tin NV + Cập nhật -->
+          <div class="flex items-end gap-3">
+            <div class="flex-1">
+              <label for="fileThongTinNV" class="block text-gray-700 font-medium mb-1">
+                Chọn file thông tin nhân viên (.xlsx)
+              </label>
+              <input type="file" id="fileThongTinNV" accept=".xlsx"
+                class="border border-gray-300 p-1 rounded w-full focus:outline-none focus:ring-2 focus:ring-teal-400" />
+            </div>
+            <button id="btnCapNhatThongTinNV" class="w-32 h-11 rounded-lg bg-teal-500 text-white font-medium
+          hover:bg-teal-600 active:bg-teal-700
+          focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400
+          transition-colors">
+              Cập nhật
+            </button>
+          </div>
+        </div>
+
+        <!-- Cột 2: Kiểm tra + Reset -->
+        <div class="border rounded-lg p-4 space-y-3">
+          <!-- Kiểm tra dữ liệu -->
+          <button id="btnValidateData" class="w-full h-11 rounded-lg bg-amber-500 text-white font-medium
+        hover:bg-amber-600 active:bg-amber-700
+        focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400
+        transition-colors">
+            Kiểm tra dữ liệu
+          </button>
+
+          <!-- Reset dữ liệu -->
+          <button id="resetBtn" class="w-full h-11 rounded-lg bg-rose-500 text-white font-medium
+        hover:bg-rose-600 active:bg-rose-700
+        focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-400
+        transition-colors flex items-center justify-center gap-2">
+            <span>🗑️</span><span>Reset dữ liệu</span>
+          </button>
+        </div>
+
+        <!-- Cột 3: Nhập + Xuất JSON -->
+        <div class="border rounded-lg p-4 space-y-3">
+          <!-- Xuất JSON -->
+          <button onclick="exportChamCongJson()" class="w-full h-11 rounded-lg bg-slate-700 text-white font-medium
+        hover:bg-slate-800 active:bg-slate-900
+        focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400
+        transition-colors flex items-center justify-center gap-2">
+            <span>📤</span><span>Xuất dữ liệu (.json)</span>
+          </button>
+
+          <!-- Nhập JSON -->
+          <label class="w-full h-11 rounded-lg bg-slate-500 text-white font-medium
+        hover:bg-slate-600 active:bg-slate-700 cursor-pointer
+        focus-within:outline-none focus-within:ring-2 focus-within:ring-slate-400
+        transition-colors flex items-center justify-center gap-2">
+            <span>📥</span><span>Nhập từ file JSON</span>
+            <input type="file" accept=".json" hidden onchange="importChamCongJson(this.files[0])" />
+          </label>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Thông tin tiêu đề -->
+    <div id="labels" class="space-y-1 text-gray-800 font-semibold">
+      <p id="labelTitle" class="text-lg font-semibold"></p>
+      <p id="labelDateRange" class="text-md"></p>
+    </div>
+
+
+    <!-- Bảng dữ liệu chấm công -->
+    <div class="border rounded shadow overflow-hidden">
+      <div id="chamCongScrollWrapper" style="max-width:100%; width:100%;">
+        <!-- table sẽ render ở đây -->
+      </div>
+    </div>
+
+    <!-- Bảng lỗi -->
+    <div id="chamCongErrorScrollWrapper" style="max-width:100%; width:100%;">
+      <!-- bảng lỗi sẽ render ở đây -->
+    </div>
+
+
+  </div>
+</body>
+
+</html>
