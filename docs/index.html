@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Ứng dụng chấm công</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- SheetJS -->
+  <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
+
+
+</head>
+
+<body class="bg-gray-100 min-h-screen flex">
+
+  <!-- Sidebar -->
+  <div id="sidebar" class="bg-gray-900 text-white w-64 transition-all duration-300 flex flex-col relative">
+    <!-- Toggle button -->
+    <button onclick="toggleSidebar()"
+      class="absolute -right-3 top-4 w-6 h-6 bg-white text-gray-900 text-xs rounded-full shadow hover:bg-gray-200 z-10">
+      ⏴
+    </button>
+
+    <!-- Title -->
+    <div class="flex items-center gap-3 px-4 py-5">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 256 256">
+        <path
+          d="M128,24A104,104,0,1,0,232,128,104.2,104.2,0,0,0,128,24Zm8,112a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h24V80a8,8,0,0,1,16,0Z" />
+      </svg>
+      <span class="text-xl font-semibold sidebar-label">Chấm Công</span>
+    </div>
+
+    <!-- Nav -->
+    <nav class="flex flex-col gap-2 mt-4 px-2">
+      <button onclick="setActivePage('chamCong')" class="sidebar-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 256 256">
+          <path
+            d="M128,24A104,104,0,1,0,232,128,104.2,104.2,0,0,0,128,24Zm8,112a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h24V80a8,8,0,0,1,16,0Z" />
+        </svg>
+        <span class="sidebar-label">Chấm Công</span>
+      </button>
+
+      <button onclick="setActivePage('nhapPhieuCongTac')" class="sidebar-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 256 256">
+          <path
+            d="M208,88H152a8,8,0,0,1-8-8V24H72A16,16,0,0,0,56,40V216a16,16,0,0,0,16,16H184a16,16,0,0,0,16-16V96A8,8,0,0,0,208,88Zm-40,64a8,8,0,0,1-8,8H144v16a8,8,0,0,1-16,0V160H112a8,8,0,0,1,0-16h16V128a8,8,0,0,1,16,0v16h16A8,8,0,0,1,168,152Z" />
+        </svg>
+        <span class="sidebar-label">Nhập Phiếu Công Tác</span>
+      </button>
+
+
+      <button id="menuChamCongQL" onclick="setActivePage('chamCongQL')" class="sidebar-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 256 256">
+          <path
+            d="M208,88H152a8,8,0,0,1-8-8V24H72A16,16,0,0,0,56,40V216a16,16,0,0,0,16,16H184a16,16,0,0,0,16-16V96A8,8,0,0,0,208,88Zm-40,64a8,8,0,0,1-8,8H144v16a8,8,0,0,1-16,0V160H112a8,8,0,0,1,0-16h16V128a8,8,0,0,1,16,0v16h16A8,8,0,0,1,168,152Z" />
+        </svg>
+        <span class="sidebar-label">Chấm Công QL- NSM</span>
+      </button>
+
+      <button onclick="setActivePage('ketXuat')" class="sidebar-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 256 256">
+          <path
+            d="M128,160a8,8,0,0,1-5.7-2.3l-32-32a8,8,0,0,1,11.4-11.4L120,132.7V80a8,8,0,0,1,16,0v52.7l18.3-18.4a8,8,0,0,1,11.4,11.4l-32,32A8,8,0,0,1,128,160Zm88,48H40a8,8,0,0,1,0-16H216a8,8,0,0,1,0,16Z" />
+        </svg>
+        <span class="sidebar-label">Kết Xuất</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Main content -->
+  <main id="mainContent" class="flex-1 p-10 space-y-6 overflow-auto max-w-[calc(100vw-16rem)]">
+    <div class="text-gray-500">Chọn một chức năng từ menu bên trái.</div>
+  </main>
+
+  <!-- Global script -->
+  <script src="js/sidebar.js"></script>
+
+  <script>
+    function setActivePage(page) {
+      fetch(`pages/${page}.html`)
+        .then(res => res.text())
+        .then(html => {
+          const container = document.getElementById('mainContent')
+          container.innerHTML = html
+
+          const script = document.createElement('script')
+          script.src = `js/${page}.js`
+          script.onload = () => {
+            console.log(`✅ Loaded js/${page}.js`)
+            // Gọi hàm khởi tạo tùy theo trang
+            if (page === 'chamCong' && typeof attachChamCongEvents === 'function') {
+              attachChamCongEvents()
+            } else if (page === 'ketXuat' && typeof attachKetXuatEvents === 'function') {
+              attachKetXuatEvents()
+            } else if (page === 'nhapPhieuCongTac' && typeof addRealTimeValidationListeners === 'function') {
+              addRealTimeValidationListeners()
+            } else if (page === 'chamCongQL' && typeof attachChamCongQLEvents === 'function') {
+              attachChamCongQLEvents()
+            }
+          }
+          document.body.appendChild(script)
+        })
+        .catch(err => {
+          document.getElementById('mainContent').innerHTML = '<p class="text-red-600">Không thể tải trang.</p>'
+        })
+    }
+
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar')
+      sidebar.classList.toggle('w-64')
+      sidebar.classList.toggle('w-16')
+      document.querySelectorAll('.sidebar-label').forEach(label => label.classList.toggle('hidden'))
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chấm Công Quản Lý</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="../js/chamCongQL.js"></script>
+  <script>
+    console.log('[Test Inline] danhSachQL = ', localStorage.getItem('danhSachQL'));
+  </script>
+</head>
+
+<body>
+  <!-- 📌 Giao diện Chấm Công Quản Lý -->
+  <div class="p-6 space-y-6">
+    <h2 class="text-xl font-bold">👤 Chấm Công Quản Lý</h2>
+
+    <!-- 🔍 Bộ lọc tìm kiếm -->
+    <div class="flex gap-10 w-full">
+      <!-- Cột 1: Tìm theo tên -->
+      <div class="w-1/2 flex flex-col gap-2">
+        <label for="inputTenNV" class="font-semibold">Tìm theo tên nhân viên</label>
+        <input id="inputTenNV" type="text" placeholder="Nhập tên nhân viên..."
+               class="border px-3 py-2 rounded w-full" />
+        <button id="btnTimTheoTen"
+                class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-fit">
+          Tìm
+        </button>
+      </div>
+
+      <!-- Cột 2: Tìm theo khối / phòng ban -->
+      <div class="w-1/2 flex flex-col gap-4">
+        <!-- Dòng 1: Radio chọn khối -->
+        <div class="flex items-center gap-2">
+          <input type="radio" name="timTheo" value="khoi" id="radioKhoi" checked onchange="onRadioChange()" />
+          <label for="radioKhoi" class="font-semibold">Tìm theo Khối</label>
+        </div>
+        <select id="selectKhoi" class="border px-2 py-1 rounded h-10 w-full"></select>
+
+        <!-- Dòng 2: Radio chọn phòng ban -->
+        <div class="flex items-center gap-2">
+          <input type="radio" name="timTheo" value="phongban" id="radioPhongBan" onchange="onRadioChange()" />
+          <label for="radioPhongBan" class="font-semibold">Tìm theo Phòng ban</label>
+        </div>
+        <select id="selectPhongBan" class="border px-2 py-1 rounded h-10 w-full" disabled></select>
+
+        <button id="btnTimKiem"
+                class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-fit">
+          Tìm
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 📋 Bảng kết quả tìm kiếm -->
+  <div id="ketQuaContainer" class="mt-6 border rounded overflow-auto max-h-[500px]">
+    <!-- Table sẽ được render ở đây -->
+  </div>
+
+  <!-- 📦 Modal Nhập Công Quản Lý -->
+  <div id="modalNhapCongQL" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+    <div class="bg-white p-6 rounded-lg shadow-xl w-full max-w-3xl">
+      <h3 class="text-xl font-bold mb-4">📆 Nhập Công Quản Lý</h3>
+
+      <!-- Thông tin quản lý -->
+      <div id="qlThongTin" class="grid grid-cols-2 gap-4 mb-6 text-sm">
+        <!-- Dynamic content -->
+      </div>
+
+      <!-- Switcher + Ngày -->
+      <div class="mb-4 space-y-2">
+        <label class="flex items-center gap-2">
+          <!-- Bật sẵn Chuỗi ngày để thấy 2 checkbox luôn -->
+          <input type="checkbox" id="switchChuoiNgay" checked />
+          Chuỗi ngày
+        </label>
+
+        <!-- Hàng range + weekend filter (mặc định hiện do đã checked ở trên) -->
+        <div id="dateRangeWrapper" class="flex flex-wrap items-end gap-4">
+          <div class="flex-1 min-w-[220px]">
+            <label class="block text-sm mb-1" for="tuNgay">Từ Ngày</label>
+            <input type="date" id="tuNgay" class="border px-3 py-2 rounded w-full" />
+          </div>
+          <div class="flex-1 min-w-[220px]">
+            <label class="block text-sm mb-1" for="denNgay">Đến Ngày</label>
+            <input type="date" id="denNgay" class="border px-3 py-2 rounded w-full" />
+          </div>
+
+          <!-- 2 checkbox cuối tuần -->
+          <div id="weekendFilter" class="flex items-center gap-6">
+            <label class="flex items-center gap-2">
+              <input type="checkbox" id="excludeSat" />
+              Loại trừ Thứ 7
+            </label>
+            <label class="flex items-center gap-2">
+              <input type="checkbox" id="excludeSun" />
+              Loại trừ Chủ Nhật
+            </label>
+          </div>
+        </div>
+
+        <!-- Ngày đơn: ẩn mặc định vì đang ở chế độ Chuỗi ngày -->
+        <div id="singleDateWrapper" class="hidden">
+          <label class="block text-sm mb-1" for="ngayDon">Ngày</label>
+          <input type="date" id="ngayDon" class="border px-3 py-2 rounded w-full" />
+        </div>
+      </div>
+
+      <!-- Button hành động -->
+      <div class="flex justify-between mt-4">
+        <button id="btnNhapCongQL" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+          Nhập Công
+        </button>
+        <button id="btnDongModalQL" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">
+          Đóng
+        </button>
+      </div>
+
+      <!-- Cảnh báo trùng dữ liệu -->
+      <div id="warningTrungCongQL" class="mt-4 hidden text-red-600">
+        <p class="font-semibold">⚠️ Dữ liệu đã tồn tại. Vui lòng kiểm tra lại.</p>
+        <div id="bangTrungCongQL" class="mt-2 border rounded overflow-auto max-h-[300px]">
+          <!-- Bảng dữ liệu trùng sẽ render ở đây -->
+        </div>
+        <div class="text-right mt-3">
+          <button id="btnChapNhanNhapCongQL"
+                  class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+            Đã kiểm tra và chấp nhận
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS nhỏ để toggle range / single -->
+  <script>
+    (function () {
+      const switcher = document.getElementById('switchChuoiNgay')
+      const rangeWrap = document.getElementById('dateRangeWrapper')
+      const singleWrap = document.getElementById('singleDateWrapper')
+
+      function applyUI () {
+        const isRange = !!switcher.checked
+        rangeWrap.classList.toggle('hidden', !isRange)
+        singleWrap.classList.toggle('hidden', isRange)
+      }
+
+      switcher?.addEventListener('change', applyUI)
+      // trạng thái ban đầu (đã checked nên range hiện sẵn)
+      applyUI()
+    })()
+  </script>
+</body>
+</html>
