@@ -1,81 +1,111 @@
 body {
-    font-family: 'Inter', sans-serif;
-  }
-  
-  .sidebar-btn {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.5rem;
-    border-radius: 0.375rem;
-    transition: background 0.2s;
-  }
-  
-  .sidebar-btn:hover {
-    background-color: #1f2937;
-  }
-  
-  .sidebar-btn.active {
-    background-color: #0ea5e9;
-    color: white;
-  }
-  /* ====== Wrapper khung scroll (dùng cho bảng dài) ====== */
+  font-family: 'Inter', sans-serif;
+}
+
+.sidebar-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  transition: background 0.2s;
+}
+
+.sidebar-btn:hover {
+  background-color: #1f2937;
+}
+
+.sidebar-btn.active {
+  background-color: #0ea5e9;
+  color: white;
+}
+
+/* ====== Wrapper khung scroll (dùng cho bảng dài) ====== */
 .table-wrapper {
   width: 100%;
-  overflow-x: auto;   /* scroll ngang nếu bảng rộng */
-  overflow-y: auto;   /* scroll dọc nếu cao quá */
-  max-height: 70vh;   /* tuỳ chỉnh */
+  overflow-x: auto;
+  /* scroll ngang nếu bảng rộng */
+  overflow-y: auto;
+  /* scroll dọc nếu cao quá */
+  max-height: 70vh;
+  /* tuỳ chỉnh */
 }
 
 /* ====== Bảng chuẩn dùng chung ====== */
 .app-table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: fixed;          /* cho phép giãn đều khi còn dư không gian */
-  font-size: 0.875rem;          /* ~ text-sm */
+  table-layout: fixed;
+  /* cho phép giãn đều khi còn dư không gian */
+  font-size: 0.875rem;
+  /* ~ text-sm */
   background: #fff;
-  border: 1px solid #d1d5db;    /* gray-300 */
+  border: 1px solid #d1d5db;
+  /* gray-300 */
 }
 
 .app-table th,
 .app-table td {
-  border: 1px solid #e5e7eb;    /* gray-200 */
-  padding: 0.25rem 0.75rem;     /* py-1 px-3 */
-  white-space: nowrap;          /* không xuống dòng */
+  border: 1px solid #e5e7eb;
+  /* gray-200 */
+  padding: 0.25rem 0.75rem;
+  /* py-1 px-3 */
+  white-space: nowrap;
+  /* không xuống dòng */
   overflow: hidden;
-  text-overflow: ellipsis;      /* dài thì … */
+  text-overflow: ellipsis;
+  /* dài thì … */
   vertical-align: middle;
   text-align: left;
 }
 
 /* Header */
 .app-table thead th {
-  background: #f3f4f6;  /* gray-100 */
+  background: #f3f4f6;
+  /* gray-100 */
   font-weight: 600;
 }
 
 /* Zebra */
-.app-table tbody tr:nth-child(odd)  { background: #ffffff; }
-.app-table tbody tr:nth-child(even) { background: #f9fafb; }
+.app-table tbody tr:nth-child(odd) {
+  background: #ffffff;
+}
+
+.app-table tbody tr:nth-child(even) {
+  background: #f9fafb;
+}
 
 /* Hover */
 .app-table tbody tr:hover {
-  background: #eef2ff; /* indigo-50 nhẹ */
+  background: #eef2ff;
+  /* indigo-50 nhẹ */
 }
 
 /* Cột # và checkbox gọn lại */
-.app-table .col-index     { width: 48px;  min-width: 48px;  text-align: center; }
-.app-table .col-checkbox  { width: 48px;  min-width: 48px;  text-align: center; }
+.app-table .col-index {
+  width: 48px;
+  min-width: 48px;
+  text-align: center;
+}
+
+.app-table .col-checkbox {
+  width: 48px;
+  min-width: 48px;
+  text-align: center;
+}
 
 /* Checkbox trong ô căn giữa */
 .app-table .cell-center {
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ====== TUỲ CHỌN: Freeze header (bật khi cần) ====== */
 /* Thêm class .sticky-header vào table để cố định thead */
 .app-table.sticky-header thead th {
-  position: sticky; top: 0;
+  position: sticky;
+  top: 0;
   z-index: 2;
   background: #f3f4f6;
 }
@@ -84,28 +114,42 @@ body {
 /* Thêm class .sticky-first-col vào table để cố định cột đầu tiên (#) */
 .app-table.sticky-first-col th:first-child,
 .app-table.sticky-first-col td:first-child {
-  position: sticky; left: 0;
-  z-index: 3; background: #fff;
+  position: sticky;
+  left: 0;
+  z-index: 3;
+  background: #fff;
   box-shadow: 2px 0 0 #e5e7eb;
 }
 
 /* ====== TUỲ CHỌN: Kích cỡ compact ====== */
 .app-table.compact th,
 .app-table.compact td {
-  padding: 0.25rem 0.5rem; /* nhỏ hơn */
+  padding: 0.25rem 0.5rem;
+  /* nhỏ hơn */
 }
 
 /* ====== TUỲ CHỌN: Ẩn overflow tổng thể khi cần ====== */
-.table-wrapper.no-y-scroll { overflow-y: hidden; }
-.table-wrapper.no-x-scroll { overflow-x: hidden; }
-.app-table--auto {
-  table-layout: auto;      /* để browser tính theo nội dung */
-  width: max-content;      /* bảng rộng đúng theo nội dung */
+.table-wrapper.no-y-scroll {
+  overflow-y: hidden;
 }
+
+.table-wrapper.no-x-scroll {
+  overflow-x: hidden;
+}
+
+.app-table--auto {
+  table-layout: auto;
+  /* để browser tính theo nội dung */
+  width: max-content;
+  /* bảng rộng đúng theo nội dung */
+}
+
 .app-table--nowrap th,
 .app-table--nowrap td {
-  white-space: nowrap;     /* không xuống dòng */
+  white-space: nowrap;
+  /* không xuống dòng */
 }
+
 /* Cột "Thao Tác" trong bảng lỗi */
 #chamCongErrorTable th:last-child,
 #chamCongErrorTable td:last-child {
@@ -117,64 +161,312 @@ body {
 #chamCongErrorTable td.col-loi {
   white-space: normal;
   word-break: break-word;
-  max-width: 300px;   /* tuỳ chỉnh */
+  max-width: 300px;
+  /* tuỳ chỉnh */
 }
+
 .btn {
   @apply w-full px-4 py-2 rounded text-white flex items-center justify-center gap-2;
 }
-.btn-yellow { @apply bg-yellow-500 hover:bg-yellow-600; }
-.btn-red    { @apply bg-red-500 hover:bg-red-600; }
-.btn-dark   { @apply bg-gray-700 hover:bg-gray-800; }
-.btn-gray   { @apply bg-gray-500 hover:bg-gray-600; }
+
+.btn-yellow {
+  @apply bg-yellow-500 hover:bg-yellow-600;
+}
+
+.btn-red {
+  @apply bg-red-500 hover:bg-red-600;
+}
+
+.btn-dark {
+  @apply bg-gray-700 hover:bg-gray-800;
+}
+
+.btn-gray {
+  @apply bg-gray-500 hover:bg-gray-600;
+}
 
 /* Thu gọn các cột không cần rộng */
-table th:nth-child(1), /* STT */
+table th:nth-child(1),
+/* STT */
 table td:nth-child(1) {
   min-width: 50px;
   width: 70px;
 }
 
-table th:nth-child(2), /* Mã NV */
+table th:nth-child(2),
+/* Mã NV */
 table td:nth-child(2) {
   min-width: 70px;
   width: 110px;
 }
-table th:nth-child(3), /* Mã NV */
+
+table th:nth-child(3),
+/* Mã NV */
 table td:nth-child(3) {
   min-width: 70px;
   width: 110px;
 }
-table th:nth-child(5), /* Phòng ban */
+
+table th:nth-child(5),
+/* Phòng ban */
 table td:nth-child(5) {
   min-width: 70px;
   width: 110px;
 }
 
-table th:nth-child(6), /* Chức vụ */
+table th:nth-child(6),
+/* Chức vụ */
 table td:nth-child(6) {
   min-width: 60px;
   width: 90px;
 }
 
 /* Mở rộng cột Họ tên */
-table th:nth-child(4), /* Tên NV */
+table th:nth-child(4),
+/* Tên NV */
 table td:nth-child(4) {
   min-width: 200px;
   width: 250px;
   white-space: nowrap;
 }
-table th:nth-child(8), /* Chức vụ */
+
+table th:nth-child(8),
+/* Chức vụ */
 table td:nth-child(8) {
   min-width: 60px;
   width: 70px;
 }
-table th:nth-child(9), /* Chức vụ */
+
+table th:nth-child(9),
+/* Chức vụ */
 table td:nth-child(9) {
   min-width: 60px;
   width: 70px;
 }
-table th:nth-child(10), /* Chức vụ */
+
+table th:nth-child(10),
+/* Chức vụ */
 table td:nth-child(10) {
   min-width: 60px;
   width: 70px;
+}
+
+/* Input + nút Tìm nằm 1 dòng, cùng chiều cao */
+.inline-form {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.input {
+  flex: 1;
+  height: 44px;
+  padding: 0 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* Nút dùng chung: áp dụng cho cả Tìm và Load */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 18px;
+  border-radius: 10px;
+  font-weight: 600;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: #2563eb;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #1d4ed8;
+}
+
+/* Hàng “Danh sách nhanh”: label bên trái – nút Load bên phải, căn thẳng hàng */
+.quick-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-top: 1px dashed #e5e7eb;
+}
+
+.quick-item:first-of-type {
+  border-top: none;
+}
+
+/* (tuỳ chọn) chiều rộng cột 1 lớn hơn cột 2,3 */
+.col-left {
+  flex: 3;
+}
+
+/* các cột còn lại đặt flex:1 */
+/* Padding chuẩn cho mọi trang */
+.page-shell {
+  padding: 0.75rem 1.5rem 1rem;
+  /* pt-2 pr-6 pb-4 pl-6 */
+  margin-top: 0;
+  /* trang KHÔNG có body padding -> không cần âm */
+}
+
+/* Nếu TRANG nào body có p-6 -> thêm class body-padded cho body */
+.body-padded .page-shell {
+  margin-top: -1.5rem;
+  /* triệt tiêu p-6 của body */
+}
+
+/* Container ngoài cho bảng chấm công và bảng lỗi */
+#chamCongScrollWrapper,
+#chamCongErrorScrollWrapper {
+  width: 100%;
+}
+
+/* Chỉ container ngoài mới cuộn */
+#chamCongScrollWrapper table,
+#chamCongErrorScrollWrapper table {
+  table-layout: fixed;
+  /* tránh cột phình */
+  width: 100%;
+}
+
+/* Giới hạn chiều cao cho bảng */
+.chamcong-container {
+  max-height: 240px;
+  /* tuỳ chỉnh */
+  overflow: auto;
+  /* chỉ cuộn tại đây */
+}
+
+
+/* Nếu muốn tất cả ô số căn giữa */
+#chamCongScrollWrapper td,
+#chamCongErrorScrollWrapper td {
+  vertical-align: middle;
+}
+
+/* Container ngoài của bảng lỗi nên đặt class riêng (nếu muốn) */
+/* .error-container { max-height: 240px; overflow: auto; } */
+
+/* Cột “Ngày” trong bảng lỗi cố định rộng (chọn đúng index nếu cần) */
+/* Ví dụ nếu “Ngày” là cột thứ 6 (tính cả STT), sửa nth-child cho đúng của bạn */
+#chamCongErrorScrollWrapper table th:nth-child(6),
+#chamCongErrorScrollWrapper table td:nth-child(6) {
+  min-width: 8.5rem;
+  max-width: 8.5rem;
+  font-variant-numeric: tabular-nums;
+}
+/* Bảng compact hơn (bạn đã có .app-table.compact -> đảm bảo áp dụng) */
+.app-table.compact th,
+.app-table.compact td {
+  padding: 0.25rem 0.5rem; /* nhỏ lại để giảm chiều cao dòng */
+}
+
+/* Cột Lỗi: giữ xuống dòng nhưng clamp 2 dòng để không “đội” chiều cao */
+#chamCongErrorTable td.col-loi {
+  white-space: normal;
+  word-break: break-word;
+}
+
+#chamCongErrorTable td.error-clamp {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; /* 👈 2 dòng */
+  overflow: hidden;
+}
+
+/* (tùy chọn) nếu trước đây bạn đặt max-width: 300px cho .col-loi, có thể bỏ
+   vì width giờ đã do <colgroup> điều khiển qua widthMap['Lỗi'] = 14rem */
+/* Bảng lỗi: sticky ổn định */
+#chamCongErrorTable {
+  border-collapse: separate;
+  border-spacing: 0;
+  position: relative;
+}
+
+/* Header dính trên cùng */
+#chamCongErrorTable thead th {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+/* Cột cuối "Thao Tác" dính sát phải và có nền xám */
+#chamCongErrorTable thead th:last-child,
+#chamCongErrorTable tbody td:last-child {
+  position: sticky;
+  right: 0;
+  z-index: 4;                 /* dưới header, trên cell khác */
+  background: #f3f4f6;        /* ⬅️ nền xám để che cột phía dưới */
+  box-shadow: -2px 0 0 #e5e7eb;
+  min-width: 10rem;           /* khớp widthMap */
+  max-width: 10rem;
+}
+
+/* Header của cột cuối giữ màu vàng */
+#chamCongErrorTable thead th:last-child {
+  background: #fde68a;
+  z-index: 6;
+}
+
+/* Ô thao tác: chắc chắn không wrap và căn giữa */
+#chamCongErrorTable td.action-cell {
+  white-space: nowrap;
+}
+#chamCongErrorTable td.action-cell button {
+  line-height: 1;     /* tương đương leading-none */
+  font-size: 0.875rem;/* text-sm */
+  padding: 0.25rem 0.5rem; /* px-2 py-1 */
+}
+
+/* Cột "Ngày" ở bảng chấm công */
+#chamCongScrollWrapper th.col-ngay,
+#chamCongScrollWrapper td.col-ngay {
+  min-width: 8.5rem;
+  max-width: 8.5rem;
+  font-variant-numeric: tabular-nums;
+}
+/* Cột cuối "Thao Tác" dính sát phải và có nền xám che phía dưới */
+#chamCongErrorTable thead th:last-child,
+#chamCongErrorTable tbody td:last-child {
+  position: sticky;
+  right: 0;
+  z-index: 4;
+  background: #f3f4f6;          /* nền xám */
+  box-shadow: -2px 0 0 #e5e7eb;
+  min-width: 11rem;              /* khớp widthMap bên JS */
+  max-width: 11rem;
+}
+
+/* Header cột cuối vẫn là vàng */
+#chamCongErrorTable thead th:last-child {
+  background: #fde68a;
+  z-index: 6;
+}
+
+/* Wrapper bên trong ô thao tác để giữ 2 nút trên 1 dòng */
+#chamCongErrorTable td.action-cell .action-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;     /* ~6px */
+  white-space: nowrap;
+}
+
+/* Nút nhỏ gọn hơn để chắc chắn không bị tràn */
+#chamCongErrorTable td.action-cell .action-wrap button {
+  font-size: 0.875rem;   /* text-sm */
+  line-height: 1;        /* leading-none */
+  padding: 0.25rem 0.5rem; /* py-1 px-2 */
 }
