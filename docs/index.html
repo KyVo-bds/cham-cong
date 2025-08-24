@@ -7,7 +7,7 @@
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="css/style.css?v=20250816232923" />
+  <link rel="stylesheet" href="css/style.css?v=20250824105359" />
 
   <!-- SheetJS -->
   <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
@@ -61,7 +61,13 @@
         </svg>
         <span class="sidebar-label">Chấm Công QL- NSM</span>
       </button>
-
+      <button onclick="setActivePage('quanLyNV_NL')" class="sidebar-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 256 256">
+          <path
+            d="M208,88H152a8,8,0,0,1-8-8V24H72A16,16,0,0,0,56,40V216a16,16,0,0,0,16,16H184a16,16,0,0,0,16-16V96A8,8,0,0,0,208,88Zm-40,64a8,8,0,0,1-8,8H144v16a8,8,0,0,1-16,0V160H112a8,8,0,0,1,0-16h16V128a8,8,0,0,1,16,0v16h16A8,8,0,0,1,168,152Z" />
+        </svg>
+        <span class="sidebar-label">Nhân viên Nghỉ luôn</span>
+      </button>
       <button onclick="setActivePage('ketXuat')" class="sidebar-btn">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 256 256">
           <path
@@ -78,9 +84,9 @@
   </main>
 
   <!-- Global script -->
-  <script src="js/sidebar.js?v=20250816232923"></script>
+  <script src="js/sidebar.js?v=20250824105359"></script>
 
-  <script>
+  <!-- <script>
     function setActivePage(page) {
       fetch(`pages/${page}.html`)
         .then(res => res.text())
@@ -116,7 +122,7 @@
       sidebar.classList.toggle('w-16')
       document.querySelectorAll('.sidebar-label').forEach(label => label.classList.toggle('hidden'))
     }
-  </script>
+  </script> -->
 </body>
 
 </html>

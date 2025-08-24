@@ -1,0 +1,37 @@
+<section class="space-y-6">
+  <div class="flex items-center justify-between">
+    <h2 class="text-xl font-bold">👥 Quản lý NV — NL & Nghi ngờ nghỉ luôn</h2>
+    <div class="flex items-center gap-2">
+      <button id="btnReloadAll" class="px-3 py-1 border rounded bg-gray-100 hover:bg-gray-200">
+        Tải lại tất cả
+      </button>
+    </div>
+  </div>
+
+  <!-- KHU 1: Danh sách NV có mã NL -->
+  <section class="border rounded bg-white p-4">
+    <div class="flex items-center justify-between mb-3">
+      <h3 class="font-semibold">Danh sách NV có mã NL</h3>
+      <div class="flex items-center gap-2">
+        <button id="btnLoadNL" class="px-3 py-1 border rounded bg-gray-100 hover:bg-gray-200">Load danh sách NL</button>
+        <button id="btnExportNL" class="px-3 py-1 border rounded bg-gray-100 hover:bg-gray-200">Xuất CSV</button>
+      </div>
+    </div>
+    <!-- ⬇️ chú thích màu đỏ, in nghiêng -->
+    <p class="text-red-600 italic mb-2">
+      ** Những nhân viên này đã được set là NL trong file thông tin NV và sẽ không thể hiện trong bản chấm công.
+    </p>
+    <div id="nlWrap"></div>
+  </section>
+
+  <!-- KHU 2: Danh sách NV nghi ngờ nghỉ luôn -->
+  <section class="border rounded bg-white p-4">
+    <div class="flex items-center gap-3 mb-3">
+      <h3 class="font-semibold">Danh sách NV nghi ngờ nghỉ luôn</h3>
+      <button id="btnScanSuspected" class="px-3 py-1 border rounded bg-gray-100 hover:bg-gray-200">Quét danh
+        sách</button>
+      <span id="suspectMetaPage" class="text-sm text-gray-600"></span>
+    </div>
+    <div id="suspectedQuitTableWrap"></div>
+  </section>
+</section>
